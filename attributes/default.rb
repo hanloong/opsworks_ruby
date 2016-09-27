@@ -27,7 +27,7 @@ default['nginx']['source']['modules'] = %w(
 # database
 ## common
 
-default['defaults']['database']['adapter'] = 'sqlite3'
+default['defaults']['database']['adapter'] = 'postgresql'
 
 # scm
 ## common

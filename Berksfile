@@ -2,6 +2,8 @@
 source 'https://supermarket.chef.io'
 solver :ruby, :required
 
-cookbook 'deployer'
+cookbook 'deployer', '~> 0.1.1'
+cookbook 'ruby-ng', '~> 0.3.0'
+cookbook 'nginx', '~> 2.7.6'
 
 metadata
