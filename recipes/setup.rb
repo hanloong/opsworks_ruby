@@ -6,6 +6,9 @@
 
 prepare_recipe
 
+puts "DEBUG ATTRIBUTES"
+puts node
+
 # Ruby and bundler
 include_recipe 'deployer'
 if node['platform_family'] == 'debian'
