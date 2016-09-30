@@ -18,8 +18,7 @@ module Drivers
       end
 
       def after_deploy
-        manual_action(:stop)
-        manual_action(:start)
+        manual_action(:restart)
       end
       alias after_undeploy after_deploy
 
