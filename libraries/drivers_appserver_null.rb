@@ -13,7 +13,7 @@ module Drivers
       end
 
       def appserver_config
-        ''
+        'null.rb'
       end
     end
   end
