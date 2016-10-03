@@ -178,4 +178,44 @@ describe 'opsworks_ruby::deploy' do
     expect(chef_run).to deploy_deploy('a1')
     expect(chef_run).not_to deploy_deploy('a2')
   end
+
+  context 'Sidekiq' do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '14.04') do |solo_node|
+        deploy = node['deploy']
+        deploy['dummy_project']['appserver']['adapter'] = 'null'
+        deploy['dummy_project']['webserver']['adapter'] = 'null'
+        deploy['dummy_project']['worker']['adapter'] = 'sidekiq'
+        solo_node.set['deploy'] = deploy
+      end.converge(described_recipe)
+    end
+    let(:chef_run_rhel) do
+      ChefSpec::SoloRunner.new(platform: 'amazon', version: '2016.03') do |solo_node|
+        deploy = node['deploy']
+        deploy['dummy_project']['appserver']['adapter'] = 'null'
+        deploy['dummy_project']['webserver']['adapter'] = 'null'
+        deploy['dummy_project']['worker']['adapter'] = 'sidekiq'
+        solo_node.set['deploy'] = deploy
+      end.converge(described_recipe)
+    end
+
+    it 'performs a deploy on debian' do
+      deploy_debian = chef_run.deploy(aws_opsworks_app['shortname'])
+
+      expect(deploy_debian).not_to notify('service[nginx]').to(:restart).delayed
+      expect(chef_run).not_to run_execute('restart puma')
+    end
+
+    it 'performs a deploy on rhel' do
+      deploy_rhel = chef_run_rhel.deploy(aws_opsworks_app['shortname'])
+
+      expect(deploy_rhel).not_to notify('service[httpd]').to(:restart).delayed
+      expect(chef_run_rhel).not_to run_execute('restart puma')
+    end
+
+    it 'restarts resques via monit' do
+      expect(chef_run).to run_execute("monit restart sidekiq_#{aws_opsworks_app['shortname']}-1")
+      expect(chef_run).to run_execute("monit restart sidekiq_#{aws_opsworks_app['shortname']}-2")
+    end
+  end
 end

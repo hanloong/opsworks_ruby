@@ -5,6 +5,16 @@ module Drivers
       adapter :null
       allowed_engines :null
       output filter: []
+
+      protected
+
+      def appserver_command
+        'echo "nothing to do"'
+      end
+
+      def appserver_config
+        ''
+      end
     end
   end
 end
