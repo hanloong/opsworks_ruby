@@ -57,8 +57,7 @@ describe 'opsworks_ruby::deploy' do
         'purge_before_symlink' => %w(log tmp/cache tmp/pids public/system public/assets public/test)
       )
 
-      expect(chef_run).to run_execute('stop unicorn')
-      expect(chef_run).to run_execute('start unicorn')
+      expect(chef_run).to run_execute('restart unicorn')
       expect(deploy).to notify('service[nginx]').to(:restart).delayed
       expect(service).to do_nothing
     end
@@ -93,16 +92,14 @@ describe 'opsworks_ruby::deploy' do
       deploy_debian = chef_run.deploy(aws_opsworks_app['shortname'])
 
       expect(deploy_debian).to notify('service[apache2]').to(:restart).delayed
-      expect(chef_run).to run_execute('stop puma')
-      expect(chef_run).to run_execute('start puma')
+      expect(chef_run).to run_execute('restart puma')
     end
 
     it 'performs a deploy on rhel' do
       deploy_rhel = chef_run_rhel.deploy(aws_opsworks_app['shortname'])
 
       expect(deploy_rhel).to notify('service[httpd]').to(:restart).delayed
-      expect(chef_run_rhel).to run_execute('stop puma')
-      expect(chef_run_rhel).to run_execute('start puma')
+      expect(chef_run_rhel).to run_execute('restart puma')
     end
 
     it 'restarts resques via monit' do
@@ -130,13 +127,11 @@ describe 'opsworks_ruby::deploy' do
     end
 
     it 'performs a deploy on debian' do
-      expect(chef_run).to run_execute('stop thin')
-      expect(chef_run).to run_execute('start thin')
+      expect(chef_run).to run_execute('restart thin')
     end
 
     it 'performs a deploy on rhel' do
-      expect(chef_run_rhel).to run_execute('stop thin')
-      expect(chef_run_rhel).to run_execute('start thin')
+      expect(chef_run_rhel).to run_execute('restart thin')
     end
 
     it 'restarts delayed_jobs via monit' do
