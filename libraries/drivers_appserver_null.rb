@@ -9,7 +9,7 @@ module Drivers
       protected
 
       def appserver_command
-        'echo "nothing to do"'
+        ''
       end
 
       def appserver_config
