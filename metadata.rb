@@ -11,6 +11,7 @@ depends 'deployer'
 depends 'ruby-ng'
 depends 'nginx', '~> 2.7'
 depends 'newrelic'
+depends 'logentries_agent'
 depends 'apt'
 depends 'yum'
 
