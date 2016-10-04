@@ -6,5 +6,6 @@ cookbook 'deployer', '~> 0.1.1'
 cookbook 'ruby-ng', '~> 0.3.0'
 cookbook 'nginx', '~> 2.7.6'
 cookbook "newrelic"
+cookbook 'logentries_agent', '~> 0.2.0'
 
 metadata

@@ -11,6 +11,8 @@ depends 'deployer'
 depends 'ruby-ng'
 depends 'nginx', '~> 2.7'
 depends 'newrelic'
+depends 'apt'
+depends 'yum'
 
 supports 'amazon', '>= 2015.03'
 supports 'ubuntu', '>= 12.04'
