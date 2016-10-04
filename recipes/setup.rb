@@ -6,9 +6,6 @@
 
 prepare_recipe
 
-# New Relic
-include_recipe 'newrelic::server_monitor_agent'
-
 # Ruby and bundler
 include_recipe 'deployer'
 if node['platform_family'] == 'debian'
