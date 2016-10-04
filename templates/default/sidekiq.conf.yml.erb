@@ -1,33 +1,37 @@
-:concurrency: 5
-:pidfile: tmp/pids/sidekiq.pid
-:logfile: log/sidekiq.log
-:verbose: true
-development:
-  :concurrency: 1
-staging:
-  :concurrency: 10
-production:
-  :concurrency: 75
-:queues:
-  - [default, 1]
-  - [auth, 4]
-  - [automated_messaging, 3]
-  - [daily_alerts, 1]
-  - [dormant_accounts, 1]
-  - [fraud_review, 3]
-  - [free_to_message, 2]
-  - [history, 1]
-  - [image_data, 2]
-  - [last_active, 1]
-  - [locations, 3]
-  - [mailers, 1]
-  - [members, 2]
-  - [messaging, 3]
-  - [places_of_interest, 3]
-  - [realtime_alerts, 2]
-  - [searchkick, 5]
-  - [search_tracking, 1]
-  - [sessions, 1]
-  - [sms_cleanup, 1]
-  - [view_tracking, 1]
-  - [value_my_room, 1]
+<%- if @config %>
+  <%= @config.to_yaml %>
+<%- else %>
+  :concurrency: 5
+  :pidfile: tmp/pids/sidekiq.pid
+  :logfile: log/sidekiq.log
+  :verbose: true
+  development:
+    :concurrency: 1
+  staging:
+    :concurrency: 10
+  production:
+    :concurrency: 75
+  :queues:
+    - [default, 1]
+    - [auth, 4]
+    - [automated_messaging, 3]
+    - [daily_alerts, 1]
+    - [dormant_accounts, 1]
+    - [fraud_review, 3]
+    - [free_to_message, 2]
+    - [history, 1]
+    - [image_data, 2]
+    - [last_active, 1]
+    - [locations, 3]
+    - [mailers, 1]
+    - [members, 2]
+    - [messaging, 3]
+    - [places_of_interest, 3]
+    - [realtime_alerts, 2]
+    - [searchkick, 5]
+    - [search_tracking, 1]
+    - [sessions, 1]
+    - [sms_cleanup, 1]
+    - [view_tracking, 1]
+    - [value_my_room, 1]
+<%- end %>

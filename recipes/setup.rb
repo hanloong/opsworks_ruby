@@ -47,3 +47,7 @@ end
 
 # New Relic
 include_recipe 'newrelic::server_monitor_agent'
+
+# log entries
+include_recipe 'logentries_agent::install'
+include_recipe 'logentries_agent::configure'
